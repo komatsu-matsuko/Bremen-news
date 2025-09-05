@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BIツール活用の進化</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(180deg, #667eea 0%, #764ba2 50%, #ff6b6b 100%);
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+            animation: slideUp 1s ease-out;
+        }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            animation: shine 3s infinite;
+        }
+        @keyframes shine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            font-weight: 300;
+            z-index: 1;
+            position: relative;
+        }
+        .timeline-section {
+            padding: 40px;
+        }
+        .time-block {
+            margin-bottom: 40px;
+            animation: fadeInUp 0.8s ease-out;
+            animation-fill-mode: both;
+        }
+        .time-block:nth-child(1) { animation-delay: 0.2s; }
+        .time-block:nth-child(2) { animation-delay: 0.4s; }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .time-title {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 15px 15px 0 0;
+            font-size: 1.5em;
+            font-weight: bold;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .time-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, #ff6b6b, #feca57, #48dbfb, #ff9ff3);
+            animation: colorWave 2s infinite;
+        }
+        @keyframes colorWave {
+            0%, 100% { transform: translateX(-100%); }
+            50% { transform: translateX(100%); }
+        }
+        .time-content {
+            background: linear-gradient(135deg, #f8f9ff 0%, #e8ecff 100%);
+            border: 3px solid #667eea;
+            border-top: none;
+            border-radius: 0 0 15px 15px;
+            padding: 30px;
+        }
+        .bullet {
+            margin: 15px 0;
+            padding: 15px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            animation: bounceIn 0.6s ease-out;
+            animation-fill-mode: both;
+        }
+        .bullet:nth-child(1) { animation-delay: 0.6s; }
+        .bullet:nth-child(2) { animation-delay: 0.8s; }
+        .bullet:nth-child(3) { animation-delay: 1s; }
+        @keyframes bounceIn {
+            0% { opacity: 0; transform: scale(0.3); }
+            50% { transform: scale(1.05); }
+            70% { transform: scale(0.9); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+        .bullet:hover {
+            transform: translateX(10px) scale(1.02);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+        }
+        .bullet::before {
+            content: '●';
+            color: #667eea;
+            font-size: 1.2em;
+            margin-right: 10px;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+        .competitive-section {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+            color: white;
+            padding: 50px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            animation: slideInLeft 1s ease-out 1.2s both;
+        }
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-100%); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        .competitive-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            animation: slideLight 3s infinite;
+        }
+        @keyframes slideLight {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+        .competitive-section h2 {
+            margin: 0 0 20px 0;
+            font-size: 2em;
+            z-index: 1;
+            position: relative;
+        }
+        .competitive-content {
+            font-size: 1.3em;
+            font-weight: bold;
+            background: rgba(255,255,255,0.2);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+            z-index: 1;
+            position: relative;
+            animation: glow 2s infinite alternate;
+        }
+        @keyframes glow {
+            from { box-shadow: 0 0 20px rgba(255,255,255,0.3); }
+            to { box-shadow: 0 0 40px rgba(255,255,255,0.6); }
+        }
+        .resources-section {
+            padding: 50px;
+            animation: fadeIn 1s ease-out 1.4s both;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .resource-box {
+            background: linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+        .resource-box:hover {
+            transform: scale(1.05);
+        }
+        .resource-box::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(transparent, rgba(255,255,255,0.3), transparent);
+            animation: rotate 4s linear infinite;
+        }
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .resource-box h3 {
+            margin: 0 0 20px 0;
+            font-size: 1.6em;
+            z-index: 1;
+            position: relative;
+        }
+        .resource-box .bullet {
+            background: rgba(255,255,255,0.9);
+            color: #2d3436;
+            animation: slideInRight 0.8s ease-out;
+            animation-fill-mode: both;
+        }
+        .resource-box .bullet:nth-child(2) { animation-delay: 1.6s; }
+        .resource-box .bullet:nth-child(3) { animation-delay: 1.8s; }
+        .resource-box .bullet:nth-child(4) { animation-delay: 2s; }
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        .highlight {
+            background: linear-gradient(135deg, #feca57 0%, #ff9ff3 100%);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            font-weight: bold;
+            z-index: 1;
+            position: relative;
+            animation: heartbeat 2s infinite;
+        }
+        @keyframes heartbeat {
+            0%, 50%, 100% { transform: scale(1); }
+            25%, 75% { transform: scale(1.05); }
+        }
+        .help-section {
+            background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+            padding: 50px;
+            animation: slideInUp 1s ease-out 2.2s both;
+        }
+        @keyframes slideInUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .help-title {
+            text-align: center;
+            font-size: 2em;
+            font-weight: bold;
+            color: #2d3436;
+            margin-bottom: 30px;
+            animation: bounce 2s infinite;
+        }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+        .help-content {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        .help-box {
+            flex: 1;
+            min-width: 300px;
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            animation: zoomIn 0.8s ease-out;
+            animation-fill-mode: both;
+        }
+        .help-box:nth-child(1) { animation-delay: 2.4s; }
+        .help-box:nth-child(2) { animation-delay: 2.6s; }
+        @keyframes zoomIn {
+            from { opacity: 0; transform: scale(0); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .help-box:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+        .help-box h4 {
+            color: #e17055;
+            margin: 0 0 15px 0;
+            font-size: 1.3em;
+            animation: typing 2s steps(20) infinite;
+        }
+        @keyframes typing {
+            0%, 50% { border-right: 2px solid #e17055; }
+            51%, 100% { border-right: transparent; }
+        }
+        .final-message {
+            background: linear-gradient(135deg, #2d3436 0%, #636e72 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+            font-size: 1.5em;
+            font-weight: bold;
+            border-radius: 15px;
+            position: relative;
+            overflow: hidden;
+            animation: finalAppear 1s ease-out 2.8s both;
+        }
+        @keyframes finalAppear {
+            from { opacity: 0; transform: scale(0.8) rotateX(90deg); }
+            to { opacity: 1; transform: scale(1) rotateX(0deg); }
+        }
+        .final-message::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            animation: finalSweep 2s infinite 3s;
+        }
+        @keyframes finalSweep {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+        .images-section {
+            background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+            padding: 50px;
+            animation: slideInUp 1s ease-out 3s both;
+        }
+        .images-title {
+            text-align: center;
+            font-size: 2em;
+            font-weight: bold;
+            color: white;
+            margin-bottom: 30px;
+            animation: bounce 2s infinite;
+        }
+        .images-container {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .image-box {
+            flex: 1;
+            min-width: 300px;
+            max-width: 400px;
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            animation: zoomIn 0.8s ease-out;
+            animation-fill-mode: both;
+        }
+        .image-box:nth-child(1) { animation-delay: 3.2s; }
+        .image-box:nth-child(2) { animation-delay: 3.4s; }
+        .image-box:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+        .image-box img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+        .image-box:hover img {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>BIツール活用の進化とマーケティング変革</h1>
+        </div>
+        
+        <div class="timeline-section">
+            <div class="time-block">
+                <div class="time-title">これまで</div>
+                <div class="time-content">
+                    <div class="bullet">データを取り扱うためのハードスキルが必要</div>
+                    <div class="bullet">エンジニアやマーケターを中心とした運用</div>
+                    <div class="bullet">PDCAのPCAに関与するためのハードルが高かった</div>
+                </div>
+            </div>
+            
+            <div class="time-block">
+                <div class="time-title">これから</div>
+                <div class="time-content">
+                    <div class="bullet">AIの進化により、BIツールの開発速度が爆速化</div>
+                    <div class="bullet">ソフトスキルのみでマーケターになれる</div>
+                    <div class="bullet">幹部がマーケターへ進化！</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="competitive-section">
+            <h2>競合優位性について</h2>
+            <div class="competitive-content">
+                BIツール × CVRによるクロス分析で、PDCAを高速で回す
+            </div>
+        </div>
+        
+        <div class="resources-section">
+            <div class="resource-box">
+                <h3>現在のリソース</h3>
+                <div class="bullet">先行優位性</div>
+                <div class="bullet">スピード感</div>
+                <div class="highlight">
+                    規制の少なさと、一人で簡潔できる＝拡大の余白
+                </div>
+            </div>
+        </div>
+        
+        <div class="help-section">
+            <div class="help-title">手伝ってほしいポイント</div>
+            <div class="help-content">
+                <div class="help-box">
+                    <h4>現在の課題</h4>
+                    <p>次々に変化していくような感覚＝不安</p>
+                </div>
+                <div class="help-box">
+                    <h4>目指す未来</h4>
+                    <p>変化と成長がリンクして、自ら変化を望む文化</p>
+                </div>
+            </div>
+            
+            <div class="final-message">
+                そのためにPの後半とCを任せたい！
+            </div>
+        </div>
+    </div>
+</body>
+</html>
